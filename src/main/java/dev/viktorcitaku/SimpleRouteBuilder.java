@@ -15,9 +15,9 @@ public class SimpleRouteBuilder extends RouteBuilder {
 
   @Override
   public void configure() {
-    RedisStringIdempotentRepository redis =
-        new RedisStringIdempotentRepository(redisTemplate, "redis");
+    final var redis = new RedisStringIdempotentRepository(redisTemplate, "redis");
     redis.setExpiry(Duration.ofSeconds(30).toSeconds());
+
     from("activemq:queue:MY.QUEUE?concurrentConsumers=2")
         .idempotentConsumer(body(), redis)
         .bean(SimpleListener.class, "onMessage");

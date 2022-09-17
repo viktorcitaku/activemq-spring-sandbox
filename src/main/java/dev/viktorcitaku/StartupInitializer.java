@@ -18,10 +18,13 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class StartupInitializer implements ApplicationListener<ContextRefreshedEvent> {
+
   private static final String[] FIXED_MESSAGES =
       new String[] {"APPLE", "BANANA", "PINEAPPLE", "POMEGRENATE", "HONEYDEW"};
+
   private final JmsTemplate jmsTemplate;
   private final TaskExecutor taskExecutor;
+
   private boolean isDone;
 
   @Override
